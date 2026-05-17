@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Japanese Kana</title>
+  <link rel="stylesheet" href="shared.css?v=6">
+  <link rel="icon" href="favicon.svg">
+  <style>
+    /* ── Article Layout ── */
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-pink));
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Table of Contents ── */
+    .toc {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 24px 28px;
+      margin: 0 0 48px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: section-enter 0.5s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    @keyframes section-enter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toc-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 14px;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc li {
+      counter-increment: toc;
+      margin-bottom: 8px;
+    }
+
+    .toc li::before {
+      content: counter(toc, decimal-leading-zero);
+      margin-right: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .toc a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color var(--transition);
+    }
+
+    .toc a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* ── Sections with staggered entrance ── */
+    .section {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 14px;
+      color: var(--text-primary);
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .section p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ── Highlight Box with glassmorphism ── */
+    .highlight-box {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 24px;
+      margin: 24px 0;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .highlight-box::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, var(--hero-glow-1), transparent);
+      border-radius: 50%;
+      filter: blur(30px);
+      pointer-events: none;
+    }
+
+    .highlight-box:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 15px var(--card-glow);
+    }
+
+    .highlight-box .label {
+      position: relative;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 10px;
+    }
+
+    .highlight-box p {
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+      margin: 24px 0 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
+      border-radius: 1px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-blue);
+      background: var(--bg);
+      animation: pulse-dot 3s ease-in-out infinite;
+    }
+
+    .timeline-item:nth-child(2)::before { animation-delay: -0.5s; }
+    .timeline-item:nth-child(3)::before { animation-delay: -1s; }
+    .timeline-item:nth-child(4)::before { animation-delay: -1.5s; }
+    .timeline-item:nth-child(5)::before { animation-delay: -2s; }
+
+    .timeline-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+    }
+
+    .timeline-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Writing Style Showcase ── */
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0 32px;
+    }
+
+    .style-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 28px 16px 20px;
+      text-align: center;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .style-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-glow), transparent 60%);
+      pointer-events: none;
+    }
+
+    .style-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 20px var(--card-glow);
+    }
+
+    .style-card:hover::before {
+      opacity: 1;
+    }
+
+    .style-label {
+      position: relative;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+
+    .style-chars {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .style-char {
+      font-size: 42px;
+      line-height: 1;
+      color: var(--text-primary);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .style-card:hover .style-char {
+      transform: scale(1.1);
+    }
+
+    .style-card .style-note {
+      position: relative;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+    }
+
+    /* Printed: clean serif */
+    .style-printed .style-char {
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-weight: 400;
+    }
+
+    /* Handwritten: rounded, casual feel */
+    .style-handwritten .style-char {
+      font-family: "Klee One", "Zen Kurenaido", "YuKyokasho", "UD Digi Kyokasho", "Segoe UI", cursive;
+      font-weight: 400;
+    }
+
+    /* Calligraphic: brush-style bold */
+    .style-calligraphic .style-char {
+      font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho Pro", serif;
+      font-weight: 900;
+      font-style: italic;
+    }
+
+    /* ── Comparison Table ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 32px;
+      font-size: 15px;
+    }
+
+    .compare-table th {
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table .jp {
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 28px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    /* ── Inline Example Pair ── */
+    .example-pair {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 20px 24px;
+      margin: 16px 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .example-pair:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 15px var(--card-glow);
+      transform: translateY(-2px);
+    }
+
+    .example-pair .char {
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 48px;
+      line-height: 1;
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .example-pair .arrow {
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+
+    .example-pair .detail {
+      flex: 1;
+    }
+
+    .example-pair .detail .romaji {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 2px;
+    }
+
+    .example-pair .detail .meaning {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Big 3-script comparison ── */
+    .scripts-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0 32px;
+    }
+
+    .script-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 24px 16px;
+      text-align: center;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .script-block::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-glow), transparent 60%);
+      pointer-events: none;
+    }
+
+    .script-block:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 20px var(--card-glow);
+    }
+
+    .script-block:hover::before {
+      opacity: 1;
+    }
+
+    .script-block .script-label {
+      position: relative;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .script-block:nth-child(1) .script-label { color: var(--accent-blue); }
+    .script-block:nth-child(2) .script-label { color: var(--accent-violet); }
+    .script-block:nth-child(3) .script-label { color: var(--accent-pink); }
+
+    .script-block .script-char {
+      position: relative;
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 48px;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 8px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .script-block:hover .script-char {
+      transform: scale(1.1);
+    }
+
+    .script-block .script-note {
+      position: relative;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── CTA Banner with glassmorphism ── */
+    .cta-banner {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, var(--hero-glow-1), var(--hero-glow-2), transparent);
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .cta-banner:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 30px var(--card-glow);
+    }
+
+    .cta-banner h3 {
+      position: relative;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .cta-banner p {
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .cta-btn:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .cta-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Back to Top Button ── */
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 32px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .back-to-top:hover {
+      color: var(--accent-blue);
+      border-color: var(--accent-blue);
+      background: rgba(0,112,243,0.08);
+      transform: translateY(-2px);
+    }
+
+    .back-to-top svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    footer { max-width: 720px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 48px 0 40px; }
+      .hero h1 { font-size: 32px; }
+      .style-grid { grid-template-columns: 1fr; }
+      .scripts-row { grid-template-columns: 1fr; }
+      .cta-banner { padding: 28px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .style-grid { gap: 10px; }
+      .example-pair { flex-direction: column; text-align: center; gap: 8px; }
+      .example-pair .arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span><span style="color:#c005a7">あ</span>・EasyKana</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="intro.html" class="active">Intro</a></li>
+          <li><a href="hiragana.html">Hiragana</a></li>
+          <li><a href="katakana.html">Katakana</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="intro.html" class="active">Intro</a>
+    <a href="hiragana.html">Hiragana</a>
+    <a href="katakana.html">Katakana</a>
+    <a href="quiz.html">Quiz</a>
+  </div>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+    document.getElementById('hamburger').addEventListener('touchend', function(e) {
+      e.preventDefault();
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+  </script>
+
+  <!-- Hero with animated background orbs -->
+  <div class="hero-wrap">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="article">
+      <section class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Guide
+        </div>
+        <h1>What is <span class="gradient-text">Kana</span>?</h1>
+        <p>Everything you need to know about Japan's two syllabic writing systems known as <em>kana</em> &mdash; Hiragana and Katakana. Their origins, how they work, and when each one is used.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="article">
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#basics">The Basics</a></li>
+        <li><a href="#three-scripts">Three Scripts, One Language</a></li>
+        <li><a href="#history">A Brief History</a></li>
+        <li><a href="#how-it-works">How Hiragana Works</a></li>
+        <li><a href="#visual-styles">Printed, Handwritten &amp; Calligraphic</a></li>
+        <li><a href="#why-learn">Why Learn Hiragana First?</a></li>
+        <li><a href="#katakana">What is Katakana?</a></li>
+        <li><a href="#katakana-usage">When is Katakana Used?</a></li>
+        <li><a href="#comparing">Hiragana vs Katakana</a></li>
+      </ol>
+    </div>
+
+    <!-- Section 1: Basics -->
+    <section class="section" id="basics">
+      <h2>The Basics</h2>
+      <p>Hiragana (ひらがな) is one of three writing systems used in the Japanese language. It consists of <strong>46 basic characters</strong>, each representing a syllable &mdash; a vowel sound like "a" or a consonant-vowel pair like "ka" or "shi."</p>
+      <p>Unlike the English alphabet, where letters represent individual consonants or vowels, hiragana characters represent whole syllables. This makes it a <strong>syllabary</strong> rather than an alphabet. Once you learn the 46 sounds, you can read and pronounce any hiragana text.</p>
+
+      <div class="highlight-box">
+        <div class="label">Key Concept</div>
+        <p>Each hiragana character = one syllable = one sound. There are no silent letters, no irregular pronunciations. What you see is exactly what you say.</p>
+      </div>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 2: Three Scripts -->
+    <section class="section" id="three-scripts">
+      <h2>Three Scripts, One Language</h2>
+      <p>Japanese is unique in that it uses three different scripts together in everyday writing. Here's how they compare, using the word for "cat":</p>
+
+      <div class="scripts-row">
+        <div class="script-block">
+          <div class="script-label">Hiragana</div>
+          <div class="script-char">ねこ</div>
+          <div class="script-note">Native Japanese words, grammar particles, verb endings</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Katakana</div>
+          <div class="script-char">ネコ</div>
+          <div class="script-note">Foreign loanwords, emphasis, scientific names</div>
+        </div>
+        <div class="script-block">
+          <div class="script-label">Kanji</div>
+          <div class="script-char">猫</div>
+          <div class="script-note">Chinese-origin characters, each carrying meaning</div>
+        </div>
+      </div>
+
+      <p>Hiragana is the foundation. It's used for native Japanese words, grammatical elements, and as a reading aid (called <strong>furigana</strong>) placed above kanji characters. Children learn hiragana first, and it's the recommended starting point for foreign learners too.</p>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 3: History -->
+    <section class="section" id="history">
+      <h2>A Brief History</h2>
+      <p>Hiragana has a fascinating origin &mdash; it evolved from simplified Chinese characters over more than a thousand years.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">5th&ndash;6th Century</div>
+          <div class="timeline-text">Chinese characters (kanji) arrive in Japan through Korea and China. Japanese scholars begin using kanji to write Japanese, sometimes for meaning, sometimes purely for their sounds.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">8th Century &mdash; Man'yogana</div>
+          <div class="timeline-text">A system emerges where kanji are used solely for their phonetic value, ignoring their original meaning. For example, the kanji 安 ("peace," pronounced "an") is used just for the sound "a." This system is called Man'yogana.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">9th Century &mdash; Cursive Simplification</div>
+          <div class="timeline-text">Court women, who had limited access to formal Chinese education, developed a flowing, cursive style of writing Man'yogana. Over time, the characters became more and more simplified. 安 became あ. 以 became い. The result: hiragana.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">10th&ndash;11th Century &mdash; Literary Flourishing</div>
+          <div class="timeline-text">Hiragana becomes the script of Japan's great literary works. The Tale of Genji and The Pillow Book are written largely in hiragana, establishing it as a vehicle for artistic expression.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1900 &mdash; Standardization</div>
+          <div class="timeline-text">The Japanese government standardizes the hiragana set to 46 characters, selecting one character form for each syllable from the many variants in use.</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <div class="label">Fun Fact</div>
+        <p>Hiragana was historically called "women's hand" (女手, <em>onnade</em>) because of its origins among court women. Ironically, it went on to become the most fundamental script in Japanese &mdash; learned first by every child and student.</p>
+      </div>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 4: How It Works -->
+    <section class="section" id="how-it-works">
+      <h2>How Hiragana Works</h2>
+      <p>The 46 hiragana characters are organized into a grid called the <strong>gojuon</strong> (fifty-sound chart), arranged by consonant rows and vowel columns:</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Row</th>
+            <th>Characters</th>
+            <th>Sounds</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vowels</td>
+            <td class="jp">あ い う え お</td>
+            <td>a, i, u, e, o</td>
+          </tr>
+          <tr>
+            <td>K-row</td>
+            <td class="jp">か き く け こ</td>
+            <td>ka, ki, ku, ke, ko</td>
+          </tr>
+          <tr>
+            <td>S-row</td>
+            <td class="jp">さ し す せ そ</td>
+            <td>sa, shi, su, se, so</td>
+          </tr>
+          <tr>
+            <td>T-row</td>
+            <td class="jp">た ち つ て と</td>
+            <td>ta, chi, tsu, te, to</td>
+          </tr>
+          <tr>
+            <td>N-row</td>
+            <td class="jp">な に ぬ ね の</td>
+            <td>na, ni, nu, ne, no</td>
+          </tr>
+          <tr>
+            <td>H-row</td>
+            <td class="jp">は ひ ふ へ ほ</td>
+            <td>ha, hi, fu, he, ho</td>
+          </tr>
+          <tr>
+            <td>M-row</td>
+            <td class="jp">ま み む め も</td>
+            <td>ma, mi, mu, me, mo</td>
+          </tr>
+          <tr>
+            <td>Y-row</td>
+            <td class="jp">や ゆ よ</td>
+            <td>ya, yu, yo</td>
+          </tr>
+          <tr>
+            <td>R-row</td>
+            <td class="jp">ら り る れ ろ</td>
+            <td>ra, ri, ru, re, ro</td>
+          </tr>
+          <tr>
+            <td>W + N</td>
+            <td class="jp">わ を ん</td>
+            <td>wa, wo, n</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Each row follows the same vowel order: <strong>a, i, u, e, o</strong>. So once you know the vowels, you just pair them with each consonant. "K + a = か," "K + i = き," and so on.</p>
+
+      <h3>A Quick Example</h3>
+      <p>Here's how the word "sakura" (cherry blossom) breaks down:</p>
+
+      <div class="example-pair">
+        <div class="char">さ</div>
+        <div class="arrow">&plus;</div>
+        <div class="char">く</div>
+        <div class="arrow">&plus;</div>
+        <div class="char">ら</div>
+        <div class="arrow">&rarr;</div>
+        <div class="detail">
+          <div class="romaji">sa + ku + ra = sakura</div>
+          <div class="meaning">Cherry blossom &mdash; 3 characters, 3 syllables</div>
+        </div>
+      </div>
+
+      <h3>Modifying Sounds: Dakuten &amp; Handakuten</h3>
+      <p>While there are 46 foundational characters, you can expand the variety of sounds you can make using two types of small diacritical marks added to the top-right corner of specific characters: <strong>dakuten</strong> (゛) and <strong>handakuten</strong> (゜).</p>
+      
+      <p><strong>Dakuten (゛):</strong> Often called <em>tenten</em> ("dots"), this mark transforms unvoiced (soft) consonant sounds into voiced (hard) sounds. It modifies four specific character rows:</p>
+      <p style="margin-left: 16px; margin-bottom: 8px; color: var(--text-secondary);">&bull; <strong>K-row &rarr; G-row:</strong> か (ka) becomes が (ga)</p>
+      <p style="margin-left: 16px; margin-bottom: 8px; color: var(--text-secondary);">&bull; <strong>S-row &rarr; Z-row:</strong> さ (sa) becomes ざ (za) <span style="font-size: 13px; color: var(--text-tertiary);">(Note: し/shi becomes じ/ji)</span></p>
+      <p style="margin-left: 16px; margin-bottom: 8px; color: var(--text-secondary);">&bull; <strong>T-row &rarr; D-row:</strong> た (ta) becomes だ (da) <span style="font-size: 13px; color: var(--text-tertiary);">(Note: ち/chi becomes ぢ/ji, つ/tsu becomes づ/zu)</span></p>
+      <p style="margin-left: 16px; margin-bottom: 16px; color: var(--text-secondary);">&bull; <strong>H-row &rarr; B-row:</strong> は (ha) becomes ば (ba)</p>
+
+      <div class="example-pair">
+        <div class="char">は</div>
+        <div class="arrow">&rarr;</div>
+        <div class="char">ば</div>
+        <div class="detail">
+          <div class="romaji">ha + dakuten (゛) = ba</div>
+          <div class="meaning">"ha" turns into the voiced "ba" sound</div>
+        </div>
+      </div>
+
+      <p><strong>Handakuten (゜):</strong> Often called <em>maru</em> ("circle"), this mark is exclusively used with the <strong>H-row</strong>. It transforms the breathy "H" sound into a crisp, plosive "P" sound.</p>
+      <p style="margin-left: 16px; margin-bottom: 16px; color: var(--text-secondary);">&bull; <strong>H-row &rarr; P-row:</strong> は (ha) becomes ぱ (pa), ひ (hi) becomes ぴ (pi), and so on.</p>
+
+      <div class="example-pair">
+        <div class="char">は</div>
+        <div class="arrow">&rarr;</div>
+        <div class="char">ぱ</div>
+        <div class="detail">
+          <div class="romaji">ha + handakuten (゜) = pa</div>
+          <div class="meaning">"ha" turns into the plosive "pa" sound</div>
+        </div>
+      </div>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 5: Visual Styles -->
+    <section class="section" id="visual-styles">
+      <h2>Printed, Handwritten &amp; Calligraphic</h2>
+      <p>Just like Roman letters, hiragana looks different depending on the medium. Understanding these variations helps you recognize characters in the real world.</p>
+
+      <div class="style-grid">
+        <div class="style-card style-printed">
+          <div class="style-label">Printed (明朝体)</div>
+          <div class="style-chars">
+            <div class="style-char">あ</div>
+            <div class="style-char">か</div>
+            <div class="style-char">さ</div>
+          </div>
+          <div class="style-note">Clean, uniform strokes. Used in books, websites, and signage. The standard reference form.</div>
+        </div>
+        <div class="style-card style-handwritten">
+          <div class="style-label">Handwritten (手書き)</div>
+          <div class="style-chars">
+            <div class="style-char">あ</div>
+            <div class="style-char">か</div>
+            <div class="style-char">さ</div>
+          </div>
+          <div class="style-note">Rounder, more connected. Taught in schools using the "kyokasho" educational style. Slightly different from print.</div>
+        </div>
+        <div class="style-card style-calligraphic">
+          <div class="style-label">Calligraphic (書道)</div>
+          <div class="style-chars">
+            <div class="style-char">あ</div>
+            <div class="style-char">か</div>
+            <div class="style-char">さ</div>
+          </div>
+          <div class="style-note">Brush-ink artistry. Strokes vary in thickness, showing the brush's pressure and movement. Deeply expressive.</div>
+        </div>
+      </div>
+
+      <h3>Printed Style &mdash; 明朝体 (Mincho)</h3>
+      <p>This is the hiragana you'll see in textbooks, on screens, and in newspapers. The characters have <strong>even stroke widths</strong> and sharp, well-defined shapes. Think of it as the "Times New Roman" of Japanese. It's the best reference when you're first learning to recognize each character.</p>
+
+      <h3>Handwritten Style &mdash; 手書き (Tegaki)</h3>
+      <p>When Japanese people write by hand, the characters become <strong>rounder and more flowing</strong>. Strokes sometimes connect where they don't in print, and proportions shift slightly. For example, handwritten さ (sa) often connects the top horizontal stroke to the curved body, while the printed version keeps them separate.</p>
+
+      <div class="highlight-box">
+        <div class="label">Tip for Learners</div>
+        <p>Don't worry if your handwritten hiragana doesn't look exactly like the printed version. In Japan, schools teach a handwriting font called "kyokasho-tai" (textbook style) that bridges the gap between print and natural handwriting. Focus on stroke order, and the flow will come naturally.</p>
+      </div>
+
+      <h3>Calligraphic Style &mdash; 書道 (Shodo)</h3>
+      <p>Japanese calligraphy (<strong>shodo</strong>, literally "the way of writing") transforms hiragana into art. Written with a brush and ink on paper or silk, the strokes vary dramatically in thickness &mdash; thin where the brush lifts, thick where it presses. The beauty lies in the balance between control and spontaneity.</p>
+      <p>Calligraphic hiragana is closest to its historical roots. Since hiragana evolved from cursive Chinese characters, brush calligraphy reveals the flowing, connected nature that the printed form hides. It's both a practical art and a meditative practice in Japan.</p>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 6: Why Learn First -->
+    <section class="section" id="why-learn">
+      <h2>Why Learn Hiragana First?</h2>
+      <p>If you're just starting your Japanese journey, hiragana is the best place to begin. Here's why:</p>
+
+      <p><strong>It's the phonetic base.</strong> Every sound in Japanese can be written in hiragana. Even complex kanji have hiragana readings. Master these 46 characters and you can read the pronunciation of anything.</p>
+
+      <p><strong>It's everywhere.</strong> Children's books, furigana reading guides, grammar particles, verb conjugations &mdash; hiragana appears on every page of Japanese text.</p>
+
+      <p><strong>It's achievable.</strong> Most learners can recognize all 46 characters within one to two weeks with regular practice. Unlike kanji (which has thousands of characters), hiragana is a finite, conquerable goal.</p>
+
+      <p><strong>It unlocks everything else.</strong> Katakana mirrors hiragana structurally (same sounds, different shapes), so learning one makes the other much easier. And kanji readings are given in hiragana, so you need it to study kanji effectively.</p>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 7: What is Katakana -->
+    <section class="section" id="katakana">
+      <h2>What is Katakana?</h2>
+      <p>Katakana (カタカナ) is the second kana script. Like hiragana, it has <strong>46 basic characters</strong> representing exactly the same set of syllables. The sounds are identical &mdash; only the shapes differ.</p>
+      <p>While hiragana characters have <strong>rounded, flowing strokes</strong> derived from cursive Chinese writing, katakana characters are <strong>angular and sharp</strong>, derived from parts of Chinese characters rather than their cursive forms.</p>
+
+      <div class="highlight-box">
+        <div class="label">Key Difference</div>
+        <p>Hiragana and Katakana represent the same sounds but are used in different contexts. Think of them like lowercase and uppercase letters &mdash; same language, different visual roles.</p>
+      </div>
+
+      <h3>Origin of Katakana</h3>
+      <p>Katakana was developed by Buddhist monks during the 9th century. While court women simplified whole Chinese characters into the flowing hiragana, monks took a different approach &mdash; they extracted <strong>individual components</strong> from Chinese characters to create shorthand annotations for reading Chinese texts.</p>
+      <p>For example, the katakana ア (a) comes from the left side of the kanji 阿. The katakana カ (ka) comes from the left side of 加. This extraction method gave katakana its distinctive angular, fragmented appearance.</p>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 8: When is Katakana Used -->
+    <section class="section" id="katakana-usage">
+      <h2>When is Katakana Used?</h2>
+      <p>In modern Japanese, katakana has several specific roles:</p>
+
+      <p><strong>Foreign loanwords:</strong> This is the most common use. Words borrowed from English and other languages are written in katakana. コーヒー (koohii, "coffee"), テレビ (terebi, "TV"), パン (pan, "bread" from Portuguese).</p>
+
+      <p><strong>Foreign names:</strong> Names of people and places from other countries are written in katakana. アメリカ (Amerika), ロンドン (Rondon, "London"), マイク (Maiku, "Mike").</p>
+
+      <p><strong>Onomatopoeia:</strong> Sound effects and mimetic words are often written in katakana for emphasis. ドキドキ (dokidoki, heartbeat), ピカピカ (pikapika, sparkling), ゴロゴロ (gorogoro, rumbling).</p>
+
+      <p><strong>Emphasis:</strong> Similar to using italics or bold in English, katakana can highlight words for emphasis or stylistic effect.</p>
+
+      <p><strong>Scientific and technical terms:</strong> Animal and plant names in scientific contexts, as well as some technical terminology, are written in katakana.</p>
+
+      <div class="highlight-box">
+        <div class="label">Fun Fact</div>
+        <p>Japan absorbs thousands of English words each year, writing them in katakana. Some get shortened in creative ways: パソコン (pasokon) from "personal computer," スマホ (sumaho) from "smartphone," and コンビニ (konbini) from "convenience store."</p>
+      </div>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- Section 9: Comparing -->
+    <section class="section" id="comparing">
+      <h2>Hiragana vs Katakana</h2>
+      <p>Here's a side-by-side comparison of the same sounds written in both scripts:</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Sound</th>
+            <th>Hiragana</th>
+            <th>Katakana</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>a</td><td class="jp">あ</td><td class="jp">ア</td></tr>
+          <tr><td>ka</td><td class="jp">か</td><td class="jp">カ</td></tr>
+          <tr><td>sa</td><td class="jp">さ</td><td class="jp">サ</td></tr>
+          <tr><td>ta</td><td class="jp">た</td><td class="jp">タ</td></tr>
+          <tr><td>na</td><td class="jp">な</td><td class="jp">ナ</td></tr>
+          <tr><td>ha</td><td class="jp">は</td><td class="jp">ハ</td></tr>
+          <tr><td>ma</td><td class="jp">ま</td><td class="jp">マ</td></tr>
+          <tr><td>ra</td><td class="jp">ら</td><td class="jp">ラ</td></tr>
+        </tbody>
+      </table>
+
+      <p>Notice how hiragana characters are <strong>curvy and rounded</strong> while katakana characters are <strong>angular and straight</strong>. Both systems follow the same vowel order (a, i, u, e, o) and the same consonant rows, making it much easier to learn the second script once you know the first.</p>
+
+      <div class="highlight-box">
+        <div class="label">Learning Strategy</div>
+        <p>Start with hiragana &mdash; it's used more frequently and forms the grammatical backbone of Japanese. Once you're comfortable, katakana will feel like learning a second font for the same sounds.</p>
+      </div>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Back to top
+      </a>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-banner">
+      <h3>Ready to start?</h3>
+      <p>Explore all characters with pronunciation and examples.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+        <a href="hiragana.html" class="cta-btn">
+          Hiragana Chart
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <a href="katakana.html" class="cta-btn">
+          Katakana Chart
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
+    <span class="footer-desktop">Built for learners</span>
+    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  </footer>
+
+  <script>
+    // ── Theme Toggle ──
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) html.setAttribute('data-theme', 'dark');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // ── Intersection Observer for section entrance animations ──
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    // ── Mouse tracking for glow effect on cards ──
+    document.querySelectorAll('.style-card, .script-block').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width * 100);
+        const y = ((e.clientY - rect.top) / rect.height * 100);
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
+      });
+    });
+  </script>
+
+</body>
+</html>

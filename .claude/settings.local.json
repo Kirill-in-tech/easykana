@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(here-now)",
+      "Bash(/Users/kir/.claude/skills/here-now/scripts/publish.sh . --slug russet-guitar-j7p5 --client claude-code)"
+    ]
+  }
+}

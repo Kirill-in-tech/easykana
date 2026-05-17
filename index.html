@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Japanese — Hiragana & Katakana</title>
+  <link rel="stylesheet" href="shared.css?v=6">
+  <link rel="icon" href="favicon.svg">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-pink));
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .hero p:last-of-type {
+      margin-bottom: 48px;
+    }
+
+    /* ── Script Cards ── */
+    .scripts-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .scripts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .script-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 36px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+
+    .script-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .script-card.hiragana-card::before {
+      background: radial-gradient(circle at 50% 50%, rgba(0,112,243,0.15), transparent 60%);
+    }
+
+    .script-card.katakana-card::before {
+      background: radial-gradient(circle at 50% 50%, rgba(121,40,202,0.15), transparent 60%);
+    }
+
+    .script-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+    }
+
+    .script-card:hover::before {
+      opacity: 1;
+    }
+
+    .script-char {
+      position: relative;
+      z-index: 1;
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 80px;
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .script-card:hover .script-char {
+      transform: scale(1.08);
+    }
+
+    .hiragana-card .script-char { color: var(--accent-blue); }
+    .katakana-card .script-char { color: var(--accent-violet); }
+
+    .script-card h2 {
+      position: relative;
+      z-index: 1;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .script-card .script-desc {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .script-card .script-stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .script-card .stat {
+      text-align: center;
+    }
+
+    .script-card .stat .num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .script-card .stat .lbl {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .script-card .arrow {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 1;
+    }
+
+    .script-card:hover .arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .arrow svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Features Section ── */
+    .features {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      touch-action: manipulation;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    footer { max-width: 900px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 60px 20px 50px; }
+      .hero h1 { font-size: 36px; }
+      .scripts-grid { grid-template-columns: 1fr; gap: 16px; }
+      .script-card { padding: 36px 24px; }
+      .script-char { font-size: 60px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .script-card .arrow { opacity: 1; transform: translate(0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span><span style="color:#c005a7">あ</span>・EasyKana</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="intro.html">Intro</a></li>
+          <li><a href="hiragana.html">Hiragana</a></li>
+          <li><a href="katakana.html">Katakana</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="intro.html">Intro</a>
+    <a href="hiragana.html">Hiragana</a>
+    <a href="katakana.html">Katakana</a>
+    <a href="quiz.html">Quiz</a>
+  </div>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+    document.getElementById('hamburger').addEventListener('touchend', function(e) {
+      e.preventDefault();
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+  </script>
+
+  <div class="hero-wrap">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Interactive Learning Tool
+      </div>
+      <h1>Master <span class="gradient-text">Japanese</span> Scripts</h1>
+      <p>Japanese has two syllabic writing systems known as <em>kana</em> — Hiragana and Katakana. Explore both with interactive charts, audio pronunciation, and quizzes.</p>
+    </section>
+  </div>
+
+  <section class="scripts-section">
+    <div class="scripts-grid">
+      <a href="hiragana.html" class="script-card hiragana-card">
+        <div class="arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="script-char">あ</div>
+        <h2>Hiragana</h2>
+        <p class="script-desc">The foundational Japanese script used for native words, grammar, and pronunciation guides.</p>
+      </a>
+      <a href="katakana.html" class="script-card katakana-card">
+        <div class="arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        <div class="script-char">ア</div>
+        <h2>Katakana</h2>
+        <p class="script-desc">Used for foreign loanwords, onomatopoeia, scientific terms, and emphasis in Japanese writing.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>How it works</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3>Interactive Charts</h3>
+        <p>Browse all characters organized by rows with dakuten and handakuten variations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </div>
+        <h3>Audio Pronunciation</h3>
+        <p>Hear native pronunciation for every character to perfect your speaking.</p>
+      </div>
+      <a href="quiz.html" class="feature-card">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Practice Quizzes</h3>
+        <p>Test your knowledge with randomized quizzes for each script or both combined.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
+    <span class="footer-desktop">Built for learners</span>
+    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) html.setAttribute('data-theme', 'dark');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    document.querySelectorAll('a.script-card, a.feature-card').forEach(link => {
+      let startY = 0;
+      link.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+      link.addEventListener('touchend', e => {
+        e.preventDefault();
+        if (Math.abs(e.changedTouches[0].clientY - startY) < 10) {
+          window.location.href = link.href;
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

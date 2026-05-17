@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/Users/kir/Projects/claude course/homework1/Final' && python3 -m http.server 8080"],
+      "port": 8080
+    }
+  ]
+}

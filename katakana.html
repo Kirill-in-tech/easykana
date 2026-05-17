@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Katakana</title>
+  <link rel="stylesheet" href="shared.css?v=6">
+  <link rel="icon" href="favicon.svg">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-pink));
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .hero p:not(:last-child) {
+      margin-bottom: 12px;
+    }
+
+    .hero p:last-of-type {
+      margin-bottom: 36px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat .number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .hero-stat .label {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .section-header {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    .section-header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header .row-label {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Row Nav ── */
+    .row-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .row-nav button {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+
+    @media (hover: hover) {
+      .row-nav button:hover {
+        border-color: var(--border-hover);
+        color: var(--text-primary);
+        background: var(--bg-card);
+      }
+    }
+
+    .row-nav button.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--pill-active-bg);
+    }
+
+    /* ── Grid ── */
+    .grid-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 32px;
+    }
+
+    /* ── Modified Group label for Flex Layout ── */
+    .group-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 12px 14px;
+      border-top: 1px solid var(--border);
+      scroll-margin-top: 80px;
+      border-left: 3px solid var(--group-color, var(--text-tertiary));
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--group-color, var(--text-tertiary));
+    }
+    
+    .group-label .group-title {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* ── Dakuten Toggle Buttons Container ── */
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dakuten-btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color var(--transition);
+      letter-spacing: 0;
+      text-transform: none;
+      font-family: inherit;
+    }
+
+    @media (hover: hover) {
+      .dakuten-btn:hover {
+        color: var(--accent-blue);
+        border-color: var(--accent-blue);
+        background: rgba(0,112,243,0.08);
+      }
+    }
+
+    /* ── Tooltips ── */
+    .tooltip-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      margin-left: 4px;
+      margin-right: 2px;
+      cursor: help;
+    }
+
+    .tooltip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 10px;
+      font-family: sans-serif;
+      font-style: normal;
+      transition: color var(--transition);
+    }
+
+    .tooltip-container:hover .tooltip-icon {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      width: 240px;
+      background-color: var(--bg-card-hover);
+      color: var(--text-primary);
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 20;
+      bottom: 150%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: normal;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      pointer-events: none;
+    }
+
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: var(--border) transparent transparent transparent;
+    }
+
+    .tooltip-text::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--bg-card-hover) transparent transparent transparent;
+      z-index: 1;
+      margin-top: -2px;
+    }
+
+    .tooltip-container:hover .tooltip-text,
+    .tooltip-container.tooltip-active .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .tooltip-container.tooltip-active .tooltip-icon {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    /* ── Card with glow ── */
+    .card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 12px 16px;
+      text-align: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: card-enter 0.4s ease forwards;
+    }
+
+    @keyframes card-enter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-glow), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        border-color: var(--border-hover);
+        background: var(--bg-card-hover);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 20px var(--card-glow);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+    }
+
+    .card-character {
+      position: relative;
+      z-index: 1;
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 52px;
+      line-height: 1;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @media (hover: hover) {
+      .card:hover .card-character {
+        transform: scale(1.12);
+      }
+    }
+
+    .card-romaji {
+      position: relative;
+      z-index: 1;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--group-color, var(--text-secondary));
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    @media (hover: hover) {
+      .card:hover .card-romaji {
+        color: var(--text-primary);
+      }
+    }
+
+    .card-example {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card .play-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 2;
+    }
+
+    @media (hover: hover) {
+      .card .play-icon { display: flex; }
+      .card:hover .play-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .card .play-icon:hover {
+        background: var(--accent-blue);
+        border-color: var(--accent-blue);
+      }
+    }
+
+    .card .play-icon svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--text-secondary);
+    }
+
+    @media (hover: hover) {
+      .card .play-icon:hover svg { fill: white; }
+    }
+
+    /* ── Group accent colors ── */
+    .group-block[data-group="Vowels"]  { --group-color: #0060d3; }
+    .group-block[data-group="K-row"]   { --group-color: #6b21a8; }
+    .group-block[data-group="S-row"]   { --group-color: #c026d3; }
+    .group-block[data-group="T-row"]   { --group-color: #dc2626; }
+    .group-block[data-group="N-row"]   { --group-color: #d97706; }
+    .group-block[data-group="H-row"]   { --group-color: #0891b2; }
+    .group-block[data-group="M-row"]   { --group-color: #0060d3; }
+    .group-block[data-group="Y-row"]   { --group-color: #6b21a8; }
+    .group-block[data-group="R-row"]   { --group-color: #c026d3; }
+    .group-block[data-group="W-row & N"] { --group-color: #dc2626; }
+
+    /* ── Dark mode: brighter group colors ── */
+    html[data-theme="dark"] .group-block[data-group="Vowels"]  { --group-color: #0070f3; }
+    html[data-theme="dark"] .group-block[data-group="K-row"]   { --group-color: #7928ca; }
+    html[data-theme="dark"] .group-block[data-group="S-row"]   { --group-color: #f81ce5; }
+    html[data-theme="dark"] .group-block[data-group="T-row"]   { --group-color: #ee5a5a; }
+    html[data-theme="dark"] .group-block[data-group="N-row"]   { --group-color: #f5a623; }
+    html[data-theme="dark"] .group-block[data-group="H-row"]   { --group-color: #50e3c2; }
+    html[data-theme="dark"] .group-block[data-group="M-row"]   { --group-color: #0070f3; }
+    html[data-theme="dark"] .group-block[data-group="Y-row"]   { --group-color: #7928ca; }
+    html[data-theme="dark"] .group-block[data-group="R-row"]   { --group-color: #f81ce5; }
+    html[data-theme="dark"] .group-block[data-group="W-row & N"] { --group-color: #ee5a5a; }
+
+    /* ── Detail Panel (glassmorphism) ── */
+    .detail-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--overlay-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .detail-overlay.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .detail-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .detail-panel::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--hero-glow-1), transparent);
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .detail-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-tertiary);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+      z-index: 1;
+    }
+
+    .detail-close:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      background: var(--bg-card-hover);
+    }
+
+    .detail-char {
+      position: relative;
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 120px;
+      line-height: 1;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .detail-romaji {
+      position: relative;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+
+    .detail-play-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 28px;
+      border-radius: 24px;
+      border: none;
+      background: linear-gradient(135deg, rgba(0,112,243,0.5), rgba(121,40,202,0.5), rgba(248,28,229,0.5));
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      margin-bottom: 28px;
+    }
+
+    .detail-play-btn:hover {
+      background: linear-gradient(135deg, rgba(0,112,243,0.75), rgba(121,40,202,0.75), rgba(248,28,229,0.75));
+    }
+
+    .detail-play-btn svg { width: 16px; height: 16px; stroke: #fff; }
+
+    .detail-divider {
+      position: relative;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-violet), var(--accent-pink), transparent);
+      margin-bottom: 24px;
+    }
+
+    .detail-example-label {
+      position: relative;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, var(--accent-violet), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .detail-example-word {
+      position: relative;
+      font-family: "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", "Noto Serif JP", serif;
+      font-size: 32px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .detail-example-meaning {
+      position: relative;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .row-nav-dropdown {
+      display: none;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px 24px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .row-nav-dropdown.active {
+      display: flex;
+    }
+
+    .row-nav-dropdown button {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+
+    footer { max-width: 1200px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 36px; }
+      .hero-stats { gap: 32px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+      .card { padding: 16px 8px 12px; }
+      .card-character { font-size: 40px; }
+      .detail-panel { padding: 36px 24px; }
+      .detail-char { font-size: 80px; }
+      .group-label { flex-wrap: wrap; gap: 8px; }
+      .group-label .group-title { flex: 1 1 100%; }
+      .btn-group { flex: 1 1 100%; }
+      .row-nav button:not(:first-child) { display: none; }
+      .row-nav-dropdown { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span><span style="color:#c005a7">あ</span>・EasyKana</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="intro.html">Intro</a></li>
+          <li><a href="hiragana.html">Hiragana</a></li>
+          <li><a href="katakana.html" class="active">Katakana</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="intro.html">Intro</a>
+    <a href="hiragana.html">Hiragana</a>
+    <a href="katakana.html" class="active">Katakana</a>
+    <a href="quiz.html">Quiz</a>
+  </div>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+    document.getElementById('hamburger').addEventListener('touchend', function(e) {
+      e.preventDefault();
+      this.classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+  </script>
+
+  <div class="hero-wrap">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Interactive Katakana Chart
+      </div>
+      <h1>Master <span class="gradient-text">Katakana</span></h1>
+      <p>The complete set of 46 basic katakana characters with their dakuten and handakuten variations.</p>
+      <p>Click any character to hear its pronunciation and see example words.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="number">46</div>
+          <div class="label">Characters</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">5</div>
+          <div class="label">Vowels</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">15</div>
+          <div class="label">Consonants</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="section-header" id="chart">
+    <h2>All Characters</h2>
+    <span class="row-label">Click a character to explore</span>
+  </div>
+
+  <div class="row-nav" id="rowNav"></div>
+  <div class="row-nav-dropdown" id="rowNavDropdown"></div>
+
+  <div class="grid-section" id="gridSection"></div>
+
+  <div class="detail-overlay" id="detailOverlay">
+    <div class="detail-panel">
+      <button class="detail-close" id="detailClose">&times;</button>
+      <div class="detail-char" id="detailChar"></div>
+      <div class="detail-romaji" id="detailRomaji"></div>
+      <button class="detail-play-btn" id="detailPlayBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Play Sound
+      </button>
+      <div class="detail-divider"></div>
+      <div class="detail-example-label">Example Word</div>
+      <div class="detail-example-word" id="detailWord"></div>
+      <div class="detail-example-meaning" id="detailMeaning"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
+    <span class="footer-desktop">Built for learners</span>
+    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  </footer>
+
+  <audio id="audioPlayer" preload="none"></audio>
+
+  <script>
+    // ── Data ──
+    const hiragana = [
+      { char: "ア", romaji: "a", sound: "./sounds/a.mp3", example: "アイス (aisu) → Ice cream", group: "Vowels" },
+      { char: "イ", romaji: "i", sound: "./sounds/i.mp3", example: "インク (inku) → Ink", group: "Vowels" },
+      { char: "ウ", romaji: "u", sound: "./sounds/u.mp3", example: "ウール (uuru) → Wool", group: "Vowels" },
+      { char: "エ", romaji: "e", sound: "./sounds/e.mp3", example: "エレベーター (erebeetaa) → Elevator", group: "Vowels" },
+      { char: "オ", romaji: "o", sound: "./sounds/o.mp3", example: "オレンジ (orenji) → Orange", group: "Vowels" },
+      { char: "カ", romaji: "ka", sound: "./sounds/ka.mp3", example: "カメラ (kamera) → Camera", group: "K-row" },
+      { char: "キ", romaji: "ki", sound: "./sounds/ki.mp3", example: "キッチン (kitchin) → Kitchen", group: "K-row" },
+      { char: "ク", romaji: "ku", sound: "./sounds/ku.mp3", example: "クラス (kurasu) → Class", group: "K-row" },
+      { char: "ケ", romaji: "ke", sound: "./sounds/ke.mp3", example: "ケーキ (keeki) → Cake", group: "K-row" },
+      { char: "コ", romaji: "ko", sound: "./sounds/ko.mp3", example: "コーヒー (koohii) → Coffee", group: "K-row" },
+      { char: "サ", romaji: "sa", sound: "./sounds/sa.mp3", example: "サラダ (sarada) → Salad", group: "S-row" },
+      { char: "シ", romaji: "shi", sound: "./sounds/shi.mp3", example: "シール (shiiru) → Sticker", group: "S-row" },
+      { char: "ス", romaji: "su", sound: "./sounds/su.mp3", example: "スプーン (supuun) → Spoon", group: "S-row" },
+      { char: "セ", romaji: "se", sound: "./sounds/se.mp3", example: "セーター (seetaa) → Sweater", group: "S-row" },
+      { char: "ソ", romaji: "so", sound: "./sounds/so.mp3", example: "ソファー (sofaa) → Sofa", group: "S-row" },
+      { char: "タ", romaji: "ta", sound: "./sounds/ta.mp3", example: "タクシー (takushii) → Taxi", group: "T-row" },
+      { char: "チ", romaji: "chi", sound: "./sounds/chi.mp3", example: "チーズ (chiizu) → Cheese", group: "T-row" },
+      { char: "ツ", romaji: "tsu", sound: "./sounds/tsu.mp3", example: "ツアー (tsuaa) → Tour", group: "T-row" },
+      { char: "テ", romaji: "te", sound: "./sounds/te.mp3", example: "テレビ (terebi) → TV", group: "T-row" },
+      { char: "ト", romaji: "to", sound: "./sounds/to.mp3", example: "トマト (tomato) → Tomato", group: "T-row" },
+      { char: "ナ", romaji: "na", sound: "./sounds/na.mp3", example: "ナイフ (naifu) → Knife", group: "N-row" },
+      { char: "ニ", romaji: "ni", sound: "./sounds/ni.mp3", example: "ニンジン (ninjin) → Carrot", group: "N-row" },
+      { char: "ヌ", romaji: "nu", sound: "./sounds/nu.mp3", example: "ヌードル (nuudoru) → Noodle", group: "N-row" },
+      { char: "ネ", romaji: "ne", sound: "./sounds/ne.mp3", example: "ネクタイ (nekutai) → Necktie", group: "N-row" },
+      { char: "ノ", romaji: "no", sound: "./sounds/no.mp3", example: "ノート (nooto) → Notebook", group: "N-row" },
+      { char: "ハ", romaji: "ha", sound: "./sounds/ha.mp3", example: "ハンバーガー (hanbaagaa) → Hamburger", group: "H-row" },
+      { char: "ヒ", romaji: "hi", sound: "./sounds/hi.mp3", example: "ヒーター (hiitaa) → Heater", group: "H-row" },
+      { char: "フ", romaji: "fu", sound: "./sounds/fu.mp3", example: "フルーツ (furuutsu) → Fruit", group: "H-row" },
+      { char: "ヘ", romaji: "he", sound: "./sounds/he.mp3", example: "ヘリコプター (herikoputaa) → Helicopter", group: "H-row" },
+      { char: "ホ", romaji: "ho", sound: "./sounds/ho.mp3", example: "ホテル (hoteru) → Hotel", group: "H-row" },
+      { char: "マ", romaji: "ma", sound: "./sounds/ma.mp3", example: "マスク (masuku) → Mask", group: "M-row" },
+      { char: "ミ", romaji: "mi", sound: "./sounds/mi.mp3", example: "ミルク (miruku) → Milk", group: "M-row" },
+      { char: "ム", romaji: "mu", sound: "./sounds/mu.mp3", example: "ムード (muudo) → Mood", group: "M-row" },
+      { char: "メ", romaji: "me", sound: "./sounds/me.mp3", example: "メニュー (menyuu) → Menu", group: "M-row" },
+      { char: "モ", romaji: "mo", sound: "./sounds/mo.mp3", example: "モデル (moderu) → Model", group: "M-row" },
+      { char: "ヤ", romaji: "ya", sound: "./sounds/ya.mp3", example: "ヤード (yaado) → Yard", group: "Y-row" },
+      { char: "ユ", romaji: "yu", sound: "./sounds/yu.mp3", example: "ユニフォーム (yunifoomu) → Uniform", group: "Y-row" },
+      { char: "ヨ", romaji: "yo", sound: "./sounds/yo.mp3", example: "ヨーグルト (yooguruto) → Yogurt", group: "Y-row" },
+      { char: "ラ", romaji: "ra", sound: "./sounds/ra.mp3", example: "ラジオ (rajio) → Radio", group: "R-row" },
+      { char: "リ", romaji: "ri", sound: "./sounds/ri.mp3", example: "リモコン (rimokon) → Remote", group: "R-row" },
+      { char: "ル", romaji: "ru", sound: "./sounds/ru.mp3", example: "ルール (ruuru) → Rule", group: "R-row" },
+      { char: "レ", romaji: "re", sound: "./sounds/re.mp3", example: "レストラン (resutoran) → Restaurant", group: "R-row" },
+      { char: "ロ", romaji: "ro", sound: "./sounds/ro.mp3", example: "ロボット (robotto) → Robot", group: "R-row" },
+      { char: "ワ", romaji: "wa", sound: "./sounds/wa.mp3", example: "ワイン (wain) → Wine", group: "W-row & N" },
+      { char: "ヲ", romaji: "wo", sound: "./sounds/wo.mp3", example: "(particle)", group: "W-row & N" },
+      { char: "ン", romaji: "n", sound: "./sounds/n.mp3", example: "パン (pan) → Bread", group: "W-row & N" },
+    ];
+
+    const groupOrder = ["Vowels", "K-row", "S-row", "T-row", "N-row", "H-row", "M-row", "Y-row", "R-row", "W-row & N"];
+
+    // ── Dakuten Data Map ──
+    const dakutenMap = {
+      "K-row": {
+        baseName: "K-row",
+        dakutenName: "G-row",
+        currentState: "base",
+        base: hiragana.filter(h => h.group === "K-row"),
+        dakuten: [
+          { char: "ガ", romaji: "ga", sound: "./sounds/ga.mp3", example: "ガス (gasu) → Gas", group: "K-row" },
+          { char: "ギ", romaji: "gi", sound: "./sounds/gi.mp3", example: "ギター (gitaa) → Guitar", group: "K-row" },
+          { char: "グ", romaji: "gu", sound: "./sounds/gu.mp3", example: "グラス (gurasu) → Glass", group: "K-row" },
+          { char: "ゲ", romaji: "ge", sound: "./sounds/ge.mp3", example: "ゲーム (geemu) → Game", group: "K-row" },
+          { char: "ゴ", romaji: "go", sound: "./sounds/go.mp3", example: "ゴルフ (gorufu) → Golf", group: "K-row" }
+        ]
+      },
+      "S-row": {
+        baseName: "S-row",
+        dakutenName: "Z-row",
+        currentState: "base",
+        base: hiragana.filter(h => h.group === "S-row"),
+        dakuten: [
+          { char: "ザ", romaji: "za", sound: "./sounds/za.mp3", example: "ザック (zakku) → Backpack", group: "S-row" },
+          { char: "ジ", romaji: "ji", sound: "./sounds/ji.mp3", example: "ジム (jimu) → Gym", group: "S-row" },
+          { char: "ズ", romaji: "zu", sound: "./sounds/zu.mp3", example: "ズボン (zubon) → Pants", group: "S-row" },
+          { char: "ゼ", romaji: "ze", sound: "./sounds/ze.mp3", example: "ゼロ (zero) → Zero", group: "S-row" },
+          { char: "ゾ", romaji: "zo", sound: "./sounds/zo.mp3", example: "ゾーン (zoon) → Zone", group: "S-row" }
+        ]
+      },
+      "T-row": {
+        baseName: "T-row",
+        dakutenName: "D-row",
+        currentState: "base",
+        base: hiragana.filter(h => h.group === "T-row"),
+        dakuten: [
+          { char: "ダ", romaji: "da", sound: "./sounds/da.mp3", example: "ダンス (dansu) → Dance", group: "T-row" },
+          { char: "ヂ", romaji: "ji", sound: "./sounds/di.mp3", example: "(rare)", group: "T-row" },
+          { char: "ヅ", romaji: "zu", sound: "./sounds/du.mp3", example: "(rare)", group: "T-row" },
+          { char: "デ", romaji: "de", sound: "./sounds/de.mp3", example: "デザイン (dezain) → Design", group: "T-row" },
+          { char: "ド", romaji: "do", sound: "./sounds/do.mp3", example: "ドア (doa) → Door", group: "T-row" }
+        ]
+      },
+      "H-row": {
+        baseName: "H-row",
+        dakutenName: "B-row",
+        handakutenName: "P-row",
+        currentState: "base",
+        base: hiragana.filter(h => h.group === "H-row"),
+        dakuten: [
+          { char: "バ", romaji: "ba", sound: "./sounds/ba.mp3", example: "バス (basu) → Bus", group: "H-row" },
+          { char: "ビ", romaji: "bi", sound: "./sounds/bi.mp3", example: "ビール (biiru) → Beer", group: "H-row" },
+          { char: "ブ", romaji: "bu", sound: "./sounds/bu.mp3", example: "ブログ (burogu) → Blog", group: "H-row" },
+          { char: "ベ", romaji: "be", sound: "./sounds/be.mp3", example: "ベッド (beddo) → Bed", group: "H-row" },
+          { char: "ボ", romaji: "bo", sound: "./sounds/bo.mp3", example: "ボール (booru) → Ball", group: "H-row" }
+        ],
+        handakuten: [
+          { char: "パ", romaji: "pa", sound: "./sounds/pa.mp3", example: "パン (pan) → Bread", group: "H-row" },
+          { char: "ピ", romaji: "pi", sound: "./sounds/pi.mp3", example: "ピアノ (piano) → Piano", group: "H-row" },
+          { char: "プ", romaji: "pu", sound: "./sounds/pu.mp3", example: "プール (puuru) → Pool", group: "H-row" },
+          { char: "ペ", romaji: "pe", sound: "./sounds/pe.mp3", example: "ペン (pen) → Pen", group: "H-row" },
+          { char: "ポ", romaji: "po", sound: "./sounds/po.mp3", example: "ポスト (posuto) → Postbox", group: "H-row" }
+        ]
+      }
+    };
+
+    // Tooltip HTML strings
+    const dakutenTooltip = `<span class="tooltip-container"><i class="tooltip-icon">?</i><span class="tooltip-text">Dakuten ゛are two small strokes that change a consonant to a voiced sound<br>(k → g, s → z, t → d, h → b).</span></span>`;
+    const handakutenTooltip = `<span class="tooltip-container"><i class="tooltip-icon">?</i><span class="tooltip-text">Handakuten ゜is a small circle that changes an 'h' sound to a 'p' sound.</span></span>`;
+
+    // ── Build Row Nav ──
+    const rowNav = document.getElementById('rowNav');
+    const allBtn = document.createElement('button');
+    allBtn.textContent = 'All';
+    allBtn.classList.add('active');
+    function handleAllBtn() {
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        document.getElementById('rowNavDropdown').classList.toggle('active');
+      } else {
+        filterGroup(null, allBtn);
+      }
+    }
+    allBtn.addEventListener('click', handleAllBtn);
+    allBtn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      handleAllBtn();
+    });
+    rowNav.appendChild(allBtn);
+
+    // Expanded Nav Array specifically requesting the derived rows at the very end
+    const extendedNav = [
+      { label: "Vowels", targetGroup: "Vowels" },
+      { label: "K-row", targetGroup: "K-row", state: "base" },
+      { label: "S-row", targetGroup: "S-row", state: "base" },
+      { label: "T-row", targetGroup: "T-row", state: "base" },
+      { label: "N-row", targetGroup: "N-row" },
+      { label: "H-row", targetGroup: "H-row", state: "base" },
+      { label: "M-row", targetGroup: "M-row" },
+      { label: "Y-row", targetGroup: "Y-row" },
+      { label: "R-row", targetGroup: "R-row" },
+      { label: "W-row & N", targetGroup: "W-row & N" },
+      { label: "G-row", targetGroup: "K-row", state: "dakuten" },
+      { label: "Z-row", targetGroup: "S-row", state: "dakuten" },
+      { label: "D-row", targetGroup: "T-row", state: "dakuten" },
+      { label: "B-row", targetGroup: "H-row", state: "dakuten" },
+      { label: "P-row", targetGroup: "H-row", state: "handakuten" }
+    ];
+
+    extendedNav.forEach(navItem => {
+      const btn = document.createElement('button');
+      btn.textContent = navItem.label;
+      btn.addEventListener('click', () => filterGroup(navItem, btn));
+      rowNav.appendChild(btn);
+    });
+
+    // ── Populate Row Nav Dropdown (mobile) ──
+    const rowNavDropdown = document.getElementById('rowNavDropdown');
+
+    // Add "All" option to dropdown
+    const dropdownAllBtn = document.createElement('button');
+    dropdownAllBtn.textContent = 'All';
+    function selectFromDropdown(navItem) {
+      if (navItem) {
+        const desktopBtns = rowNav.querySelectorAll('button');
+        const match = Array.from(desktopBtns).find(b => b.textContent === navItem.label) || desktopBtns[0];
+        filterGroup(navItem, match);
+        allBtn.textContent = navItem.label;
+      } else {
+        filterGroup(null, allBtn);
+        allBtn.textContent = 'All';
+      }
+      allBtn.classList.add('active');
+      rowNavDropdown.classList.remove('active');
+    }
+    dropdownAllBtn.addEventListener('click', () => selectFromDropdown(null));
+    dropdownAllBtn.addEventListener('touchend', (e) => { e.preventDefault(); selectFromDropdown(null); });
+    rowNavDropdown.appendChild(dropdownAllBtn);
+
+    extendedNav.forEach(navItem => {
+      const btn = document.createElement('button');
+      btn.textContent = navItem.label;
+      btn.addEventListener('click', () => selectFromDropdown(navItem));
+      btn.addEventListener('touchend', (e) => { e.preventDefault(); selectFromDropdown(navItem); });
+      rowNavDropdown.appendChild(btn);
+    });
+
+    function filterGroup(navItem, activeBtn) {
+      rowNav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      activeBtn.classList.add('active');
+      
+      if (navItem) {
+        // Automatically switch the internal state logic if required by the pill button
+        if (navItem.state) {
+          changeGroupState(navItem.targetGroup, navItem.state);
+        } else if (dakutenMap[navItem.targetGroup]) {
+          changeGroupState(navItem.targetGroup, 'base');
+        }
+
+        document.querySelectorAll('.group-block').forEach(block => {
+          block.style.display = block.dataset.group === navItem.targetGroup ? '' : 'none';
+        });
+        const target = document.querySelector(`.group-block[data-group="${navItem.targetGroup}"]`);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        document.querySelectorAll('.group-block').forEach(block => { block.style.display = ''; });
+      }
+    }
+
+    // ── Helper Function to Create a Card Element ──
+    function createCard(item, delayIndex) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = (delayIndex * 30) + 'ms';
+
+      card.innerHTML = `
+        <div class="play-icon" data-sound="${item.sound}">
+          <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+        </div>
+        <div class="card-character">${item.char}</div>
+        <div class="card-romaji">${item.romaji}</div>
+      `;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width * 100);
+        const y = ((e.clientY - rect.top) / rect.height * 100);
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
+      });
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.play-icon')) return;
+        openDetail(item, card);
+      });
+
+      card.querySelector('.play-icon').addEventListener('click', (e) => {
+        e.stopPropagation();
+        playSound(item.sound, card);
+      });
+      let touchStartY = 0;
+      card.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      card.addEventListener('touchend', (e) => {
+        const touchEndY = e.changedTouches[0].clientY;
+        if (Math.abs(touchEndY - touchStartY) > 10) return;
+        e.preventDefault();
+        openDetail(item, card);
+      });
+
+      return card;
+    }
+
+    // ── Global Function to Change State and Re-render a Group Block ──
+    function changeGroupState(groupName, targetState) {
+      const map = dakutenMap[groupName];
+      if (!map || map.currentState === targetState) return;
+      
+      map.currentState = targetState;
+      
+      const block = document.querySelector(`.group-block[data-group="${groupName}"]`);
+      if (!block) return;
+      
+      const gridEl = block.querySelector('.grid');
+      const labelSpan = block.querySelector('.group-title');
+      const btnContainer = block.querySelector('.btn-group');
+      
+      // Update label HTML (injecting tooltips for dakuten/handakuten directly inside brackets)
+      if (targetState === 'base') {
+        labelSpan.innerHTML = map.baseName;
+      } else if (targetState === 'dakuten') {
+        labelSpan.innerHTML = `${map.dakutenName} (Dakuten)${dakutenTooltip}`;
+      } else if (targetState === 'handakuten') {
+        labelSpan.innerHTML = `${map.handakutenName} (Handakuten)${handakutenTooltip}`;
+      }
+
+      // Re-render grid
+      gridEl.innerHTML = '';
+      const dataToRender = map[targetState];
+      dataToRender.forEach((item, index) => {
+        const card = createCard(item, index);
+        gridEl.appendChild(card);
+      });
+
+      // Re-render buttons dynamically depending on current state
+      renderButtons(groupName, btnContainer, gridEl, labelSpan);
+    }
+
+    // ── State Machine and Render Buttons ──
+    function renderButtons(groupName, btnContainer, gridEl, labelSpan) {
+      btnContainer.innerHTML = '';
+      const map = dakutenMap[groupName];
+      
+      const states = [];
+      if (map.currentState !== 'base') states.push({ state: 'base', name: map.baseName });
+      if (map.currentState !== 'dakuten' && map.dakuten) states.push({ state: 'dakuten', name: map.dakutenName });
+      if (map.currentState !== 'handakuten' && map.handakuten) states.push({ state: 'handakuten', name: map.handakutenName });
+
+      states.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'dakuten-btn';
+        btn.textContent = `Switch to ${s.name}`;
+        let touchStartY = 0;
+        btn.addEventListener('click', () => {
+          changeGroupState(groupName, s.state);
+        });
+        btn.addEventListener('touchstart', (e) => {
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        btn.addEventListener('touchend', (e) => {
+          if (Math.abs(e.changedTouches[0].clientY - touchStartY) < 10) {
+            e.preventDefault();
+            changeGroupState(groupName, s.state);
+          }
+        });
+        btnContainer.appendChild(btn);
+      });
+    }
+
+    // ── Build Initial Grid ──
+    const gridSection = document.getElementById('gridSection');
+    const grouped = {};
+    hiragana.forEach(h => {
+      if (!grouped[h.group]) grouped[h.group] = [];
+      grouped[h.group].push(h);
+    });
+
+    let cardIndex = 0;
+    groupOrder.forEach(group => {
+      const block = document.createElement('div');
+      block.className = 'group-block';
+      block.dataset.group = group;
+
+      const label = document.createElement('div');
+      label.className = 'group-label';
+      label.id = 'group-' + group.replace(/\s+/g, '-').toLowerCase();
+      
+      // We use .group-title to apply specific inline-flexing resolving line breaks
+      const labelText = document.createElement('span');
+      labelText.className = 'group-title'; 
+      labelText.textContent = group;
+      label.appendChild(labelText);
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+
+      // Setup variant toggles
+      if (dakutenMap[group]) {
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'btn-group';
+        renderButtons(group, btnContainer, grid, labelText);
+        label.appendChild(btnContainer);
+      }
+
+      block.appendChild(label);
+
+      grouped[group].forEach((item) => {
+        const card = createCard(item, cardIndex++);
+        grid.appendChild(card);
+      });
+
+      block.appendChild(grid);
+      gridSection.appendChild(block);
+    });
+
+    // ── Audio ──
+    const audioPlayer = document.getElementById('audioPlayer');
+    function playSound(src, cardEl) {
+      audioPlayer.src = src;
+      audioPlayer.currentTime = 0;
+      audioPlayer.play();
+      if (cardEl) {
+        cardEl.classList.add('playing');
+        setTimeout(() => cardEl.classList.remove('playing'), 600);
+      }
+    }
+
+    // ── Detail Overlay ──
+    const overlay = document.getElementById('detailOverlay');
+    const detailClose = document.getElementById('detailClose');
+    const detailPlayBtn = document.getElementById('detailPlayBtn');
+    let currentDetail = null;
+
+    function openDetail(item, cardEl) {
+      currentDetail = item;
+      document.getElementById('detailChar').textContent = item.char;
+      const detailRomaji = document.getElementById('detailRomaji');
+      detailRomaji.textContent = item.romaji;
+      if (cardEl) {
+        const groupBlock = cardEl.closest('.group-block');
+        if (groupBlock) {
+          detailRomaji.style.color = getComputedStyle(groupBlock).getPropertyValue('--group-color');
+        }
+      }
+      const ex = item.example;
+      if (ex && ex.includes('→')) {
+        const parts = ex.split('→');
+        document.getElementById('detailWord').textContent = parts[0].trim();
+        document.getElementById('detailMeaning').textContent = parts[1].trim();
+      } else {
+        document.getElementById('detailWord').textContent = ex || "";
+        document.getElementById('detailMeaning').textContent = '';
+      }
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetail() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      currentDetail = null;
+    }
+
+    detailClose.addEventListener('click', closeDetail);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeDetail(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetail(); });
+    detailPlayBtn.addEventListener('click', () => { if (currentDetail) playSound(currentDetail.sound); });
+
+    // Unlock audio on first touch (required by iOS Safari)
+    document.addEventListener('touchstart', () => {
+      audioPlayer.play().then(() => { audioPlayer.pause(); audioPlayer.currentTime = 0; }).catch(() => {});
+    }, { once: true });
+
+    // ── Theme Toggle ──
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) html.setAttribute('data-theme', 'dark');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+  <script>
+    document.querySelectorAll('.tooltip-container').forEach(function(tip) {
+      tip.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var wasActive = this.classList.contains('tooltip-active');
+        document.querySelectorAll('.tooltip-container.tooltip-active').forEach(function(t) {
+          t.classList.remove('tooltip-active');
+        });
+        if (!wasActive) this.classList.add('tooltip-active');
+      });
+    });
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.tooltip-container.tooltip-active').forEach(function(t) {
+        t.classList.remove('tooltip-active');
+      });
+    });
+  </script>
+
+</body>
+</html>
