@@ -109,7 +109,7 @@
     }
 
     .toc li::before {
-      content: counter(toc, decimal-leading-zero);
+      content: counter(toc, decimal-leading-zero) " /";
       margin-right: 12px;
       font-size: 12px;
       font-weight: 600;
@@ -661,10 +661,10 @@
       </a>
       <div class="nav-right">
         <ul class="nav-links">
-          <li><a href="intro.html" class="active">Intro</a></li>
-          <li><a href="hiragana.html">Hiragana</a></li>
-          <li><a href="katakana.html">Katakana</a></li>
-          <li><a href="quiz.html">Quiz</a></li>
+          <li><a href="intro.html" class="active"><span class="num">01 /</span> Intro</a></li>
+          <li><a href="hiragana.html"><span class="num">02 /</span> Hiragana</a></li>
+          <li><a href="katakana.html"><span class="num">03 /</span> Katakana</a></li>
+          <li><a href="quiz.html"><span class="num">04 /</span> Quiz</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -710,7 +710,7 @@
       <section class="hero">
         <div class="hero-badge">
           <span class="dot"></span>
-          Guide
+          仮名 · Guide
         </div>
         <h1>What is <span class="gradient-text">Kana</span>?</h1>
         <p>Everything you need to know about Japan's two syllabic writing systems known as <em>kana</em> &mdash; Hiragana and Katakana. Their origins, how they work, and when each one is used.</p>
@@ -722,7 +722,7 @@
 
     <!-- Table of Contents -->
     <div class="toc">
-      <div class="toc-title">Contents</div>
+      <div class="toc-title">目次 · Contents</div>
       <ol>
         <li><a href="#basics">The Basics</a></li>
         <li><a href="#three-scripts">Three Scripts, One Language</a></li>
@@ -738,12 +738,12 @@
 
     <!-- Section 1: Basics -->
     <section class="section" id="basics">
-      <h2>The Basics</h2>
+      <h2><span class="sec-num">01 /</span> The Basics</h2>
       <p>Hiragana (ひらがな) is one of three writing systems used in the Japanese language. It consists of <strong>46 basic characters</strong>, each representing a syllable &mdash; a vowel sound like "a" or a consonant-vowel pair like "ka" or "shi."</p>
       <p>Unlike the English alphabet, where letters represent individual consonants or vowels, hiragana characters represent whole syllables. This makes it a <strong>syllabary</strong> rather than an alphabet. Once you learn the 46 sounds, you can read and pronounce any hiragana text.</p>
 
       <div class="highlight-box">
-        <div class="label">Key Concept</div>
+        <div class="label">要点 · Key Concept</div>
         <p>Each hiragana character = one syllable = one sound. There are no silent letters, no irregular pronunciations. What you see is exactly what you say.</p>
       </div>
       <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
@@ -754,7 +754,7 @@
 
     <!-- Section 2: Three Scripts -->
     <section class="section" id="three-scripts">
-      <h2>Three Scripts, One Language</h2>
+      <h2><span class="sec-num">02 /</span> Three Scripts, One Language</h2>
       <p>Japanese is unique in that it uses three different scripts together in everyday writing. Here's how they compare, using the word for "cat":</p>
 
       <div class="scripts-row">
@@ -784,7 +784,7 @@
 
     <!-- Section 3: History -->
     <section class="section" id="history">
-      <h2>A Brief History</h2>
+      <h2><span class="sec-num">03 /</span> A Brief History</h2>
       <p>Hiragana has a fascinating origin &mdash; it evolved from simplified Chinese characters over more than a thousand years.</p>
 
       <div class="timeline">
@@ -811,7 +811,7 @@
       </div>
 
       <div class="highlight-box">
-        <div class="label">Fun Fact</div>
+        <div class="label">豆知識 · Fun Fact</div>
         <p>Hiragana was historically called "women's hand" (女手, <em>onnade</em>) because of its origins among court women. Ironically, it went on to become the most fundamental script in Japanese &mdash; learned first by every child and student.</p>
       </div>
       <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
@@ -822,7 +822,7 @@
 
     <!-- Section 4: How It Works -->
     <section class="section" id="how-it-works">
-      <h2>How Hiragana Works</h2>
+      <h2><span class="sec-num">04 /</span> How Hiragana Works</h2>
       <p>The 46 hiragana characters are organized into a grid called the <strong>gojuon</strong> (fifty-sound chart), arranged by consonant rows and vowel columns:</p>
 
       <table class="compare-table">
@@ -944,7 +944,7 @@
 
     <!-- Section 5: Visual Styles -->
     <section class="section" id="visual-styles">
-      <h2>Printed, Handwritten &amp; Calligraphic</h2>
+      <h2><span class="sec-num">05 /</span> Printed, Handwritten &amp; Calligraphic</h2>
       <p>Just like Roman letters, hiragana looks different depending on the medium. Understanding these variations helps you recognize characters in the real world.</p>
 
       <div class="style-grid">
@@ -984,7 +984,7 @@
       <p>When Japanese people write by hand, the characters become <strong>rounder and more flowing</strong>. Strokes sometimes connect where they don't in print, and proportions shift slightly. For example, handwritten さ (sa) often connects the top horizontal stroke to the curved body, while the printed version keeps them separate.</p>
 
       <div class="highlight-box">
-        <div class="label">Tip for Learners</div>
+        <div class="label">助言 · Tip for Learners</div>
         <p>Don't worry if your handwritten hiragana doesn't look exactly like the printed version. In Japan, schools teach a handwriting font called "kyokasho-tai" (textbook style) that bridges the gap between print and natural handwriting. Focus on stroke order, and the flow will come naturally.</p>
       </div>
 
@@ -999,7 +999,7 @@
 
     <!-- Section 6: Why Learn First -->
     <section class="section" id="why-learn">
-      <h2>Why Learn Hiragana First?</h2>
+      <h2><span class="sec-num">06 /</span> Why Learn Hiragana First?</h2>
       <p>If you're just starting your Japanese journey, hiragana is the best place to begin. Here's why:</p>
 
       <p><strong>It's the phonetic base.</strong> Every sound in Japanese can be written in hiragana. Even complex kanji have hiragana readings. Master these 46 characters and you can read the pronunciation of anything.</p>
@@ -1017,12 +1017,12 @@
 
     <!-- Section 7: What is Katakana -->
     <section class="section" id="katakana">
-      <h2>What is Katakana?</h2>
+      <h2><span class="sec-num">07 /</span> What is Katakana?</h2>
       <p>Katakana (カタカナ) is the second kana script. Like hiragana, it has <strong>46 basic characters</strong> representing exactly the same set of syllables. The sounds are identical &mdash; only the shapes differ.</p>
       <p>While hiragana characters have <strong>rounded, flowing strokes</strong> derived from cursive Chinese writing, katakana characters are <strong>angular and sharp</strong>, derived from parts of Chinese characters rather than their cursive forms.</p>
 
       <div class="highlight-box">
-        <div class="label">Key Difference</div>
+        <div class="label">違い · Key Difference</div>
         <p>Hiragana and Katakana represent the same sounds but are used in different contexts. Think of them like lowercase and uppercase letters &mdash; same language, different visual roles.</p>
       </div>
 
@@ -1037,7 +1037,7 @@
 
     <!-- Section 8: When is Katakana Used -->
     <section class="section" id="katakana-usage">
-      <h2>When is Katakana Used?</h2>
+      <h2><span class="sec-num">08 /</span> When is Katakana Used?</h2>
       <p>In modern Japanese, katakana has several specific roles:</p>
 
       <p><strong>Foreign loanwords:</strong> This is the most common use. Words borrowed from English and other languages are written in katakana. コーヒー (koohii, "coffee"), テレビ (terebi, "TV"), パン (pan, "bread" from Portuguese).</p>
@@ -1051,7 +1051,7 @@
       <p><strong>Scientific and technical terms:</strong> Animal and plant names in scientific contexts, as well as some technical terminology, are written in katakana.</p>
 
       <div class="highlight-box">
-        <div class="label">Fun Fact</div>
+        <div class="label">豆知識 · Fun Fact</div>
         <p>Japan absorbs thousands of English words each year, writing them in katakana. Some get shortened in creative ways: パソコン (pasokon) from "personal computer," スマホ (sumaho) from "smartphone," and コンビニ (konbini) from "convenience store."</p>
       </div>
       <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
@@ -1062,7 +1062,7 @@
 
     <!-- Section 9: Comparing -->
     <section class="section" id="comparing">
-      <h2>Hiragana vs Katakana</h2>
+      <h2><span class="sec-num">09 /</span> Hiragana vs Katakana</h2>
       <p>Here's a side-by-side comparison of the same sounds written in both scripts:</p>
 
       <table class="compare-table">
@@ -1088,7 +1088,7 @@
       <p>Notice how hiragana characters are <strong>curvy and rounded</strong> while katakana characters are <strong>angular and straight</strong>. Both systems follow the same vowel order (a, i, u, e, o) and the same consonant rows, making it much easier to learn the second script once you know the first.</p>
 
       <div class="highlight-box">
-        <div class="label">Learning Strategy</div>
+        <div class="label">学習法 · Learning Strategy</div>
         <p>Start with hiragana &mdash; it's used more frequently and forms the grammatical backbone of Japanese. Once you're comfortable, katakana will feel like learning a second font for the same sounds.</p>
       </div>
       <a href="#" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top">
@@ -1120,10 +1120,8 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
-    <span class="footer-desktop">Built for learners</span>
-    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  <footer style="justify-content: center;">
+    <span>© 2026 · All Rights Reserved</span>
   </footer>
 
   <script>

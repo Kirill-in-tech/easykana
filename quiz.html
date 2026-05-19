@@ -96,6 +96,15 @@
       line-height: 1.7;
     }
 
+    .kanji-accent {
+      font-weight: 300;
+      color: var(--text-tertiary);
+      margin-right: 2px;
+    }
+    .script-btn .kanji-accent {
+      font-size: 0.85em;
+    }
+
     /* ── Script Picker ── */
     .script-picker {
       display: flex;
@@ -731,10 +740,10 @@
       </a>
       <div class="nav-right">
         <ul class="nav-links">
-          <li><a href="intro.html">Intro</a></li>
-          <li><a href="hiragana.html">Hiragana</a></li>
-          <li><a href="katakana.html">Katakana</a></li>
-          <li><a href="quiz.html" class="active">Quiz</a></li>
+          <li><a href="intro.html"><span class="num">01 /</span> Intro</a></li>
+          <li><a href="hiragana.html"><span class="num">02 /</span> Hiragana</a></li>
+          <li><a href="katakana.html"><span class="num">03 /</span> Katakana</a></li>
+          <li><a href="quiz.html" class="active"><span class="num">04 /</span> Quiz</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -775,14 +784,14 @@
           <div class="orb orb-3"></div>
         </div>
         <div class="start-screen">
-          <div class="badge"><span class="dot"></span> Beginner Quiz</div>
+          <div class="badge"><span class="dot"></span> <span class="kanji-accent">クイズ ·</span> Beginner Quiz</div>
           <h1>Test Your <span class="gradient-text">Kana</span></h1>
           <p class="desc">See a character, pick the correct romaji.</p>
 
           <div class="script-picker" id="scriptPicker">
-            <button class="script-btn selected" data-script="hiragana">Hiragana</button>
-            <button class="script-btn" data-script="katakana">Katakana</button>
-            <button class="script-btn" data-script="both">Both</button>
+            <button class="script-btn selected" data-script="hiragana">Hiragana <span class="kanji-accent">· 平仮名</span></button>
+            <button class="script-btn" data-script="katakana">Katakana <span class="kanji-accent">· 片仮名</span></button>
+            <button class="script-btn" data-script="both">Both <span class="kanji-accent">· 両方</span></button>
           </div>
 
           <div class="round-picker" id="roundPicker">
@@ -828,7 +837,7 @@
       <div class="results-screen">
 
         <div class="results-icon" id="resultsIcon"></div>
-        <h2 id="resultsTitle">Nice Work!</h2>
+        <h2 id="resultsTitle"><span class="kanji-accent">グッジョブ ·</span> Nice Work!</h2>
         <p class="results-subtitle" id="resultsSubtitle">Here's how you did.</p>
 
         <div class="score-ring-wrap">
@@ -881,10 +890,8 @@
 
   </div>
 
-  <footer>
-    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
-    <span class="footer-desktop">Built for learners</span>
-    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  <footer style="justify-content: center;">
+    <span>© 2026 · All Rights Reserved</span>
   </footer>
 
   <audio id="audioPlayer" preload="none"></audio>
@@ -1339,19 +1346,19 @@
 
       if (pct === 100) {
         icon.textContent = '🎉';
-        title.textContent = 'Perfect Score!';
+        title.innerHTML = '<span class="kanji-accent">完璧 ·</span> Perfect Score!';
         subtitle.textContent = 'You nailed every single one.';
       } else if (pct >= 80) {
         icon.textContent = '✨';
-        title.textContent = 'Great Job!';
+        title.innerHTML = '<span class="kanji-accent">グッジョブ ·</span> Great Job!';
         subtitle.textContent = 'Almost perfect — just a few to review.';
       } else if (pct >= 50) {
         icon.textContent = '💪';
-        title.textContent = 'Good Effort!';
+        title.innerHTML = '<span class="kanji-accent">頑張れ ·</span> Good Effort!';
         subtitle.textContent = 'Keep practicing and you\'ll get there.';
       } else {
         icon.textContent = '📚';
-        title.textContent = 'Keep Going!';
+        title.innerHTML = '<span class="kanji-accent">続けて ·</span> Keep Going!';
         subtitle.textContent = 'Try reviewing the chart, then quiz again.';
       }
 

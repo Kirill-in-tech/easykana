@@ -124,6 +124,23 @@ nav {
   transition: color var(--transition), background var(--transition);
 }
 
+.sec-num {
+  color: var(--text-tertiary);
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin-right: 6px;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.nav-links .num {
+  color: var(--text-tertiary);
+  font-size: 11px;
+  margin-right: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
 .nav-links a:hover {
   color: var(--text-primary);
   background: var(--pill-active-bg);

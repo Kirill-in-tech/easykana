@@ -121,6 +121,11 @@
       font-weight: 600;
       letter-spacing: -0.02em;
     }
+    .section-header h2 .kanji-accent {
+      font-weight: 300;
+      color: var(--text-tertiary);
+      margin-right: 2px;
+    }
 
     .section-header .row-label {
       font-size: 14px;
@@ -683,10 +688,10 @@
       </a>
       <div class="nav-right">
         <ul class="nav-links">
-          <li><a href="intro.html">Intro</a></li>
-          <li><a href="hiragana.html" class="active">Hiragana</a></li>
-          <li><a href="katakana.html">Katakana</a></li>
-          <li><a href="quiz.html">Quiz</a></li>
+          <li><a href="intro.html"><span class="num">01 /</span> Intro</a></li>
+          <li><a href="hiragana.html" class="active"><span class="num">02 /</span> Hiragana</a></li>
+          <li><a href="katakana.html"><span class="num">03 /</span> Katakana</a></li>
+          <li><a href="quiz.html"><span class="num">04 /</span> Quiz</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <svg class="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -726,7 +731,7 @@
     <section class="hero">
       <div class="hero-badge">
         <span class="dot"></span>
-        Interactive Hiragana Chart
+        平仮名 · Interactive Hiragana Chart
       </div>
       <h1>Master <span class="gradient-text">Hiragana</span></h1>
       <p>The complete set of 46 basic hiragana characters with their dakuten and handakuten variations.</p>
@@ -734,22 +739,22 @@
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="number">46</div>
-          <div class="label">Characters</div>
+          <div class="label">Characters · 字</div>
         </div>
         <div class="hero-stat">
           <div class="number">5</div>
-          <div class="label">Vowels</div>
+          <div class="label">Vowels · 母音</div>
         </div>
         <div class="hero-stat">
           <div class="number">15</div>
-          <div class="label">Consonants</div>
+          <div class="label">Consonants · 子音</div>
         </div>
       </div>
     </section>
   </div>
 
   <div class="section-header" id="chart">
-    <h2>All Characters</h2>
+    <h2><span class="kanji-accent">全字 ·</span> All Characters</h2>
     <span class="row-label">Click a character to explore</span>
   </div>
 
@@ -774,10 +779,8 @@
     </div>
   </div>
 
-  <footer>
-    <span class="footer-desktop"><span style="color:#c005a7">あ</span>・EasyKana — A Japanese learning tool</span>
-    <span class="footer-desktop">Built for learners</span>
-    <span class="footer-mobile"><span style="color:#c005a7">あ</span>・EasyKana — Built for learners</span>
+  <footer style="justify-content: center;">
+    <span>© 2026 · All Rights Reserved</span>
   </footer>
 
   <audio id="audioPlayer" preload="none"></audio>
